@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: "ReplicationController"
+metadata:
+  name: gitea
+  labels:
+    name: gitea
+spec:
+  replicas: 1
+  selector:
+    name: gitea
+  template:
+    metadata:
+      labels:
+        name: gitea
+    spec:
+      volumes:
+      - name: gitea
+        persistentVolumeClaim:
+          claimName: gitea
+      containers:
+      - name: gitea
+        image: "jmferrer/gitea:latest"
+        ports:
+        - containerPort: 3000
+          protocol: TCP
+        volumeMounts:
+        - name: gitea
+          mountPath: "/data"
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 20
+      dnsPolicy: ClusterFirst

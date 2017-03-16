@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: resa-vol0
+  labels:
+    project: resa
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+  - ReadWriteMany
+  - ReadWriteOnce
+  nfs:
+    path: /var/lib/exports/vol0
+    server: 192.168.26.10
+  persistentVolumeReclaimPolicy: Recycle
